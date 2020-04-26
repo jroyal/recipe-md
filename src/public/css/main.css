@@ -183,6 +183,18 @@ a {
   opacity: 0.8;
 }
 
+.markdown {
+  margin: 0 auto;
+  padding: 6em 1em;
+  overflow-wrap: normal;
+  min-height: 100vh;
+  max-width: 800px;
+}
+
+.markdown pre {
+  white-space: pre-wrap;
+}
+
 :root {
   --base-font-weight: 400;
   --base-font-size: 22px/1.62;

@@ -1,25 +1,16 @@
-doctype html
-html(lang='')
-  head
-    meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    title #{title}
-    meta(name='description', content='')
-    link(rel='shortcut icon', href='/images/favicon.png')
-    link(rel='stylesheet', href='/css/main.css')
+extends layout
+block content
+  div(class="abovefold")
+    div(class="wrapper")
+      div(class="branding noselect")
+        h1 Recipe MD
+        div(class="subheading") Convert recipe to markdown
+          
 
-  body
-    div(class="abovefold")
-      div(class="wrapper")
-        div(class="branding noselect")
-          h1 Recipe MD
-          div(class="subheading") Convert recipe to markdown
-            
-
-        form(action="parse_recipe" method="get")
-          div(class="input-container")
-            p(class="input-label noselect") Enter recipe URL
-            div(class="link") 
-              input(id="recipe_url" name="recipe_url" class="source-input" autocomplete="off" autofocus="" style="width: 12px;") 
-          div(class="main-button")
-            button(class="clean" type="submit") CREATE RECIPE MARKDOWN
+      form(action="parse_recipe" method="get")
+        div(class="input-container")
+          p(class="input-label noselect") Enter recipe URL
+          div(class="link") 
+            input(id="recipe_url" name="recipe_url" class="source-input" autocomplete="off" autofocus="" style="width: 12px;") 
+        div(class="main-button")
+          button(class="clean" type="submit") CREATE RECIPE MARKDOWN

@@ -1,19 +1,11 @@
-import { promises as fs } from "fs";
 import cheerio from "cheerio";
-import fetch from "node-fetch";
+import { loadURLToCheerio } from "./load";
 import {
   Recipe,
   RecipeDetails,
   RecipeIngredient,
   RecipeMeta,
 } from "../models/recipe";
-
-async function loadHTML(url: string) {
-  const resp = await fetch(url);
-  const body = await resp.text();
-  // const data = await fs.readFile("src/examplepage.html", "binary");
-  return cheerio.load(Buffer.from(body));
-}
 
 function getName(recipeContainer: Cheerio) {
   return recipeContainer.find(".wprm-recipe-name").text();
@@ -83,7 +75,7 @@ function getNotes(recipeContainer: Cheerio): string[] {
 }
 
 export async function parseRecipe(url: string): Promise<Recipe> {
-  const $ = await loadHTML(url);
+  const $ = await loadURLToCheerio(url);
   const recipeContainer = $("div[class=wprm-recipe-container]");
 
   return {
