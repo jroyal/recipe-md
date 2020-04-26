@@ -1,0 +1,1 @@
+mkdir -p dist/public/css/ && cp -R src/public/css/* dist/public/css/

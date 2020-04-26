@@ -1,0 +1,22 @@
+doctype html
+html(lang='')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title #{title}
+    meta(name='description', content='')
+    link(rel='shortcut icon', href='/images/favicon.png')
+    link(rel='stylesheet', href='/css/main.css')
+
+  body
+    h1 Hackathon Starter
+    p.lead A boilerplate for Node.js web applications.
+    hr
+
+    form(action="parse_recipe" method="get")
+        ul
+          li
+            label(for="recipe_url") URL:
+            input(type="text" id="recipe_url" name="recipe_url")
+          li(class="button")
+            button(type="submit") Get recipe
