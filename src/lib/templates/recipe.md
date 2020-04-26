@@ -3,9 +3,11 @@
 {{{summary}}}
 
 <p align="center">
-  <img width="460" height="300" src="{{{meta.image}}}">
+  <img max-width="224" height="224" src="{{{meta.image}}}">
 </p>
 
+| Meta          | Details                       |
+| ------------- | ----------------------------- |
 | Author     	| {{meta.author}}           	|
 | Published  	| {{meta.published}}        	|
 | Prep Time  	| {{details.preptime}}      	|
