@@ -21,6 +21,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/cheerio": "^0.22.18",
+    "@types/moment": "^2.13.0",
     "@types/mustache": "^4.0.1",
     "@types/node-fetch": "^2.5.7",
     "@typescript-eslint/eslint-plugin": "^2.29.0",
@@ -36,6 +37,7 @@
     "cheerio": "^1.0.0-rc.3",
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",
+    "moment": "^2.24.0",
     "mustache": "^4.0.1",
     "node-fetch": "^2.6.0",
     "pug": "^2.0.4"

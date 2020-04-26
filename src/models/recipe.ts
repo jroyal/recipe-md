@@ -21,11 +21,15 @@ interface RecipeMeta {
 interface Recipe {
   name: string;
   summary: string;
+  url: string;
   meta: RecipeMeta;
   details: RecipeDetails;
   ingredients: RecipeIngredient[];
   instructions: string[];
   notes?: string[];
+
+  // for mustache
+  formatIngredient?: () => string;
 }
 
 export { Recipe, RecipeMeta, RecipeDetails, RecipeIngredient };

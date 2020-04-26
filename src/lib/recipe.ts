@@ -6,7 +6,11 @@ import {
   RecipeIngredient,
   RecipeMeta,
 } from "../models/recipe";
+import moment from "moment";
 
+function humanizeTime(dur: string) {
+  return moment.duration(dur).humanize();
+}
 function getName(recipeContainer: Cheerio) {
   return recipeContainer.find(".wprm-recipe-name").text();
 }
@@ -35,9 +39,9 @@ function getMeta(recipeContainer: Cheerio): RecipeMeta {
 
 function getDetails(recipeContainer: Cheerio): RecipeDetails {
   return {
-    preptime: getMetaItem(recipeContainer, "prepTime"),
-    cooktime: getMetaItem(recipeContainer, "cookTime"),
-    totaltime: getMetaItem(recipeContainer, "totalTime"),
+    preptime: humanizeTime(getMetaItem(recipeContainer, "prepTime")),
+    cooktime: humanizeTime(getMetaItem(recipeContainer, "cookTime")),
+    totaltime: humanizeTime(getMetaItem(recipeContainer, "totalTime")),
     servings: getServings(recipeContainer),
   };
 }
@@ -83,6 +87,7 @@ export async function parseRecipe(url: string): Promise<Recipe> {
   return {
     name: getName(recipeContainer),
     summary: getSummary(recipeContainer),
+    url: url,
     meta: getMeta(recipeContainer),
     details: getDetails(recipeContainer),
     ingredients: getIngredients(recipeContainer),
