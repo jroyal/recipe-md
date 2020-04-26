@@ -59,7 +59,9 @@ function getIngredients(recipeContainer: Cheerio): RecipeIngredient[] {
 function getInstructions(recipeContainer: Cheerio): string[] {
   const ingredients: string[] = [];
   recipeContainer.find("div[itemprop=recipeInstructions] p").each((_, elem) => {
-    ingredients.push(cheerio(elem).text());
+    let text = cheerio(elem).text();
+    text = text.replace(/^\W*\d+\./gm, "").trim();
+    ingredients.push(text);
   });
   return ingredients;
 }
