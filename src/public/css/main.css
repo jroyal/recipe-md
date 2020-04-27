@@ -185,7 +185,7 @@ a {
 
 .markdown-container {
   margin: 0 auto;
-  padding: 6em 1em;
+  padding: 0.5em 1em;
   overflow-wrap: normal;
   min-height: 100vh;
   max-width: 800px;
@@ -202,7 +202,7 @@ a {
 }
 
 .container {
-  margin: 2em;
+  margin: 2em 2em 0.5em 2em;
   display: -webkit-box;
   display: flex;
   -webkit-box-align: center;
