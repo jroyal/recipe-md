@@ -1,10 +1,10 @@
 import crypto from "crypto";
 
-export let CACHE = {} as {
+export const CACHE = {} as {
   [code: string]: { markdown: string; markdownHTML: string };
 };
 
-let URL_CACHE = {} as { [hash: string]: string };
+const URL_CACHE = {} as { [hash: string]: string };
 
 function getSHA256Hash(input: string) {
   return crypto.createHash("sha256").update(input).digest("hex");
@@ -18,11 +18,11 @@ export function generateCode(url: string) {
     return existingCode;
   }
 
-  var result = "";
-  var characters =
+  let result = "";
+  const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  var charactersLength = characters.length;
-  for (var i = 0; i < 6; i++) {
+  const charactersLength = characters.length;
+  for (let i = 0; i < 6; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
 

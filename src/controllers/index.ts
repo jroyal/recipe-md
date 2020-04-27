@@ -13,7 +13,7 @@ export const index = (req: Request, res: Response) => {
 export const returnRecipe = async (req: Request, res: Response) => {
   const code = req.params.short_code;
 
-  let data = CACHE[code];
+  const data = CACHE[code];
   if (data) {
     res.render("markdown", data);
     return;
@@ -26,12 +26,12 @@ export const parseRecipeHandler = async (req: Request, res: Response) => {
   const recipe = await parseRecipe(url as string);
   const markdown = await generateMarkdown(recipe);
 
-  let md = new MarkdownIt({
+  const md = new MarkdownIt({
     html: true,
   });
 
-  let markdownHTML = md.render(markdown);
-  let code = generateCode(url as string);
+  const markdownHTML = md.render(markdown);
+  const code = generateCode(url as string);
   CACHE[code] = {
     markdown: markdown,
     markdownHTML: markdownHTML,
