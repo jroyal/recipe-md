@@ -1,7 +1,7 @@
 import express from "express";
 import path from "path";
 import bodyParser from "body-parser";
-import { index, parseRecipeHandler } from "./controllers";
+import { index, parseRecipeHandler, returnRecipe } from "./controllers";
 
 // Create Express server
 const app = express();
@@ -20,5 +20,6 @@ app.use(
 
 app.get("/", index);
 app.get("/parse_recipe", parseRecipeHandler);
+app.get("/:short_code", returnRecipe);
 
 export default app;

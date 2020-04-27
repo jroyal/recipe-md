@@ -1,12 +1,24 @@
 import { Request, Response } from "express";
 import { parseRecipe } from "../lib/recipe";
 import { generateMarkdown } from "../lib/markdown";
+import { generateCode, CACHE } from "../lib/cache";
 import MarkdownIt from "markdown-it";
 
 export const index = (req: Request, res: Response) => {
   res.render("index", {
     title: "Markdown MD",
   });
+};
+
+export const returnRecipe = async (req: Request, res: Response) => {
+  const code = req.params.short_code;
+
+  let data = CACHE[code];
+  if (data) {
+    res.render("markdown", data);
+    return;
+  }
+  return res.status(404).send("unknown url");
 };
 
 export const parseRecipeHandler = async (req: Request, res: Response) => {
@@ -17,9 +29,12 @@ export const parseRecipeHandler = async (req: Request, res: Response) => {
   let md = new MarkdownIt({
     html: true,
   });
+
   let markdownHTML = md.render(markdown);
-  res.render("markdown", {
+  let code = generateCode(url as string);
+  CACHE[code] = {
     markdown: markdown,
     markdownHTML: markdownHTML,
-  });
+  };
+  return res.redirect(`/${code}`);
 };
