@@ -34,9 +34,11 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@types/markdown-it": "^10.0.1",
     "cheerio": "^1.0.0-rc.3",
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",
+    "markdown-it": "^10.0.0",
     "moment": "^2.24.0",
     "mustache": "^4.0.1",
     "node-fetch": "^2.6.0",

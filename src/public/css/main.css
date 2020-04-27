@@ -183,7 +183,7 @@ a {
   opacity: 0.8;
 }
 
-.markdown {
+.markdown-container {
   margin: 0 auto;
   padding: 6em 1em;
   overflow-wrap: normal;
@@ -191,8 +191,113 @@ a {
   max-width: 800px;
 }
 
-.markdown pre {
+.raw-markdown pre {
   white-space: pre-wrap;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+.container {
+  margin: 2em;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.tabs {
+  display: -webkit-box;
+  display: flex;
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15),
+    0 6px 12px 0 rgba(24, 94, 224, 0.15);
+  padding: 0.75rem;
+  border-radius: 99px;
+}
+.tabs * {
+  z-index: 2;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.tab {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  height: 54px;
+  width: 200px;
+  font-size: 1.25rem;
+  font-weight: 500;
+  border-radius: 99px;
+  cursor: pointer;
+  -webkit-transition: color 0.15s ease-in;
+  transition: color 0.15s ease-in;
+}
+
+.notification {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin-left: 0.75rem;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  -webkit-transition: 0.15s ease-in;
+  transition: 0.15s ease-in;
+}
+
+input[type="radio"]:checked + label {
+  color: var(--primary-color);
+}
+input[type="radio"]:checked + label > .notification {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+input[id="radio-1"]:checked ~ .glider {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
+input[id="radio-2"]:checked ~ .glider {
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+.glider {
+  position: absolute;
+  display: -webkit-box;
+  display: flex;
+  height: 54px;
+  width: 200px;
+  background-color: var(--secondary-color);
+  z-index: 1;
+  border-radius: 99px;
+  -webkit-transition: 0.25s ease-out;
+  transition: 0.25s ease-out;
+}
+
+@media (max-width: 700px) {
+  .tabs {
+    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
+  }
 }
 
 :root {
@@ -216,4 +321,6 @@ a {
   --blockquote-color: #666664;
   --code-color: #808080;
   --pre-code-color: #4c4c4c;
+  --primary-color: #185ee0;
+  --secondary-color: #e6eef9;
 }
