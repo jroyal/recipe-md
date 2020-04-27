@@ -5,7 +5,7 @@ import MarkdownIt from "markdown-it";
 
 export const index = (req: Request, res: Response) => {
   res.render("index", {
-    title: "Home",
+    title: "Markdown MD",
   });
 };
 
