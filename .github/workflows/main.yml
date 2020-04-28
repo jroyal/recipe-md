@@ -1,4 +1,4 @@
-name: npm build, docker publish, and deploy
+name: docker publish, and deploy
 
 on:
     push:
@@ -11,10 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: npm install
-        uses: actions/npm@master
-        with:
-          args: install
 
       - name: docker build
         uses: actions/docker/cli@master
@@ -48,4 +44,4 @@ jobs:
             docker pull almightyzero/recipe-md
             docker stop recipe-md
             docker rm recipe-md
-            docker run -d --name=recipe-md --restart=unless-stopped -p 3001:3000 almightyzero/recipe-md
+            docker run --name=recipe-md --restart=unless-stopped -p 3001:3000 almightyzero/recipe-md
