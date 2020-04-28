@@ -21,6 +21,7 @@
 {{#ingredientGroups}}
 {{#name}}
 #### {{name}}
+
 {{/name}}
 {{#ingredients}}
 - {{{formatIngredient}}}
@@ -30,9 +31,16 @@
 
 ## Instructions
 
+{{#instructionGroups}}
+{{#name}}
+#### {{name}}
+
+{{/name}}
 {{#instructions}}
 1. {{{.}}}
 {{/instructions}}
+
+{{/instructionGroups}}
 
 {{#notes.length}}
 ## Notes

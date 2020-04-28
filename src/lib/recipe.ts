@@ -4,6 +4,7 @@ import {
   Recipe,
   RecipeDetails,
   RecipeIngredient,
+  RecipeInstructionGroup,
   RecipeIngredientGroup,
   RecipeMeta,
 } from "../models/recipe";
@@ -70,18 +71,33 @@ function getIngredients(recipeContainer: Cheerio): RecipeIngredientGroup[] {
   return ingredients;
 }
 
-function getInstructions(recipeContainer: Cheerio): string[] {
-  const instructions: string[] = [];
+function getInstructions(recipeContainer: Cheerio): RecipeInstructionGroup[] {
+  const instructions: RecipeInstructionGroup[] = [];
 
-  let findInstructions = (selector: string) => {
-    recipeContainer.find(selector).each((_, elem) => {
-      let text = cheerio(elem).text();
-      text = text.replace(/^\W*\d+\./gm, "").trim();
-      instructions.push(text);
+  recipeContainer
+    .find(".wprm-recipe-instruction-group")
+    .each((_, groupElem) => {
+      const group = cheerio(groupElem);
+      const groupName = group
+        .find(".wprm-recipe-instruction-group-name")
+        .text();
+      const instructionGroup: RecipeInstructionGroup = {
+        name: groupName,
+        instructions: [],
+      };
+      group.find("li[class=wprm-recipe-instruction]").each((_, elem) => {
+        let findInstructions = (selector: string) => {
+          group.find(selector).each((_, elem) => {
+            let text = cheerio(elem).text();
+            text = text.replace(/^\W*\d+\./gm, "").trim();
+            instructionGroup.instructions.push(text);
+          });
+        };
+        findInstructions("div[itemprop=recipeInstructions] p");
+        findInstructions("div[itemprop=recipeInstructions]");
+      });
+      instructions.push(instructionGroup);
     });
-  };
-  findInstructions("div[itemprop=recipeInstructions] p");
-  findInstructions("div[itemprop=recipeInstructions]");
   return instructions;
 }
 
@@ -106,7 +122,7 @@ export async function parseRecipe(url: string): Promise<Recipe> {
     meta: getMeta(recipeContainer),
     details: getDetails(recipeContainer),
     ingredientGroups: getIngredients(recipeContainer),
-    instructions: getInstructions(recipeContainer),
+    instructionGroups: getInstructions(recipeContainer),
     notes: getNotes(recipeContainer),
   };
 }

@@ -10,6 +10,11 @@ interface RecipeIngredientGroup {
   ingredients: RecipeIngredient[];
 }
 
+interface RecipeInstructionGroup {
+  name?: string;
+  instructions: string[];
+}
+
 interface RecipeDetails {
   preptime: string;
   cooktime: string;
@@ -30,7 +35,7 @@ interface Recipe {
   meta: RecipeMeta;
   details: RecipeDetails;
   ingredientGroups: RecipeIngredientGroup[];
-  instructions: string[];
+  instructionGroups: RecipeInstructionGroup[];
   notes?: string[];
 
   // for mustache
@@ -43,4 +48,5 @@ export {
   RecipeDetails,
   RecipeIngredient,
   RecipeIngredientGroup,
+  RecipeInstructionGroup,
 };
