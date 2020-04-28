@@ -23,7 +23,7 @@ jobs:
 
   deploy:
     name: deploy
-    needs: [build-and-publish]
+    # needs: [build-and-publish]
     runs-on: ubuntu-latest
     steps:
       - name: pull and run new container
