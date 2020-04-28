@@ -29,12 +29,12 @@ jobs:
     - name: SSH and deploy node app
       uses: appleboy/ssh-action@master
       with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: |
-            docker pull almightyzero/recipe-md
-            docker stop recipe-md
-            docker rm recipe-md
-            docker run --name=recipe-md --restart=unless-stopped -p 3001:3000 almightyzero/recipe-md
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script: |
+          docker pull almightyzero/recipe-md
+          docker stop recipe-md
+          docker rm recipe-md
+          docker run --name=recipe-md --restart=unless-stopped -p 3001:3000 almightyzero/recipe-md
