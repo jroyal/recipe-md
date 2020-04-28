@@ -1,0 +1,51 @@
+name: npm build, docker publish, and deploy
+
+on:
+    push:
+      branches:
+        - master  
+
+jobs:
+  build-and-publish:
+    name: build and publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: npm install
+        uses: actions/npm@master
+        with:
+          args: install
+
+      - name: docker build
+        uses: actions/docker/cli@master
+        with:
+          args: build -t almightyzero/recipe-md .
+
+      - name: docker login
+        uses: actions/docker/login@master
+        env:
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          
+      - name: docker push
+        uses: actions/docker/cli@master
+        with:
+          args: push almightyzero/recipe-md
+
+  deploy:
+    name: deploy
+    needs: [build-and-publish]
+    runs-on: ubuntu-latest
+    steps:
+    - name: SSH and deploy node app
+      uses: appleboy/ssh-action@master
+      with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            docker pull almightyzero/recipe-md
+            docker stop recipe-md
+            docker rm recipe-md
+            docker run -d --name=recipe-md --restart=unless-stopped -p 3001:3000 almightyzero/recipe-md
