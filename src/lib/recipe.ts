@@ -4,6 +4,7 @@ import {
   Recipe,
   RecipeDetails,
   RecipeIngredient,
+  RecipeIngredientGroup,
   RecipeMeta,
 } from "../models/recipe";
 import moment from "moment";
@@ -46,16 +47,25 @@ function getDetails(recipeContainer: Cheerio): RecipeDetails {
   };
 }
 
-function getIngredients(recipeContainer: Cheerio): RecipeIngredient[] {
-  const ingredients: RecipeIngredient[] = [];
-  recipeContainer.find("li[class=wprm-recipe-ingredient]").each((_, elem) => {
-    const li = cheerio(elem);
-    ingredients.push({
-      amount: li.find(".wprm-recipe-ingredient-amount").text(),
-      unit: li.find(".wprm-recipe-ingredient-unit").text(),
-      name: li.find(".wprm-recipe-ingredient-name").text(),
-      notes: li.find(".wprm-recipe-ingredient-notes").text(),
+function getIngredients(recipeContainer: Cheerio): RecipeIngredientGroup[] {
+  const ingredients: RecipeIngredientGroup[] = [];
+  recipeContainer.find(".wprm-recipe-ingredient-group").each((_, groupElem) => {
+    const group = cheerio(groupElem);
+    const groupName = group.find(".wprm-recipe-ingredient-group-name").text();
+    const ingredientGroup: RecipeIngredientGroup = {
+      name: groupName,
+      ingredients: [],
+    };
+    group.find("li[class=wprm-recipe-ingredient]").each((_, elem) => {
+      const li = cheerio(elem);
+      ingredientGroup.ingredients.push({
+        amount: li.find(".wprm-recipe-ingredient-amount").text(),
+        unit: li.find(".wprm-recipe-ingredient-unit").text(),
+        name: li.find(".wprm-recipe-ingredient-name").text(),
+        notes: li.find(".wprm-recipe-ingredient-notes").text(),
+      });
     });
+    ingredients.push(ingredientGroup);
   });
   return ingredients;
 }
@@ -95,7 +105,7 @@ export async function parseRecipe(url: string): Promise<Recipe> {
     url: url,
     meta: getMeta(recipeContainer),
     details: getDetails(recipeContainer),
-    ingredients: getIngredients(recipeContainer),
+    ingredientGroups: getIngredients(recipeContainer),
     instructions: getInstructions(recipeContainer),
     notes: getNotes(recipeContainer),
   };

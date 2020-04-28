@@ -18,9 +18,15 @@
 
 ## Ingredients
 
+{{#ingredientGroups}}
+{{#name}}
+#### {{name}}
+{{/name}}
 {{#ingredients}}
 - {{{formatIngredient}}}
 {{/ingredients}}
+
+{{/ingredientGroups}}
 
 ## Instructions
 

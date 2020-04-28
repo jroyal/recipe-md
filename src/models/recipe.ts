@@ -5,6 +5,11 @@ interface RecipeIngredient {
   notes?: string;
 }
 
+interface RecipeIngredientGroup {
+  name?: string;
+  ingredients: RecipeIngredient[];
+}
+
 interface RecipeDetails {
   preptime: string;
   cooktime: string;
@@ -24,7 +29,7 @@ interface Recipe {
   url: string;
   meta: RecipeMeta;
   details: RecipeDetails;
-  ingredients: RecipeIngredient[];
+  ingredientGroups: RecipeIngredientGroup[];
   instructions: string[];
   notes?: string[];
 
@@ -32,4 +37,10 @@ interface Recipe {
   formatIngredient?: () => string;
 }
 
-export { Recipe, RecipeMeta, RecipeDetails, RecipeIngredient };
+export {
+  Recipe,
+  RecipeMeta,
+  RecipeDetails,
+  RecipeIngredient,
+  RecipeIngredientGroup,
+};
