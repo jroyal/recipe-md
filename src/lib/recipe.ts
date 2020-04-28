@@ -61,13 +61,18 @@ function getIngredients(recipeContainer: Cheerio): RecipeIngredient[] {
 }
 
 function getInstructions(recipeContainer: Cheerio): string[] {
-  const ingredients: string[] = [];
-  recipeContainer.find("div[itemprop=recipeInstructions] p").each((_, elem) => {
-    let text = cheerio(elem).text();
-    text = text.replace(/^\W*\d+\./gm, "").trim();
-    ingredients.push(text);
-  });
-  return ingredients;
+  const instructions: string[] = [];
+
+  let findInstructions = (selector: string) => {
+    recipeContainer.find(selector).each((_, elem) => {
+      let text = cheerio(elem).text();
+      text = text.replace(/^\W*\d+\./gm, "").trim();
+      instructions.push(text);
+    });
+  };
+  findInstructions("div[itemprop=recipeInstructions] p");
+  findInstructions("div[itemprop=recipeInstructions]");
+  return instructions;
 }
 
 function getNotes(recipeContainer: Cheerio): string[] {
