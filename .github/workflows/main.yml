@@ -26,15 +26,16 @@ jobs:
     needs: [build-and-publish]
     runs-on: ubuntu-latest
     steps:
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        script: |
-          whoami
-          ls -al
-          docker pull almightyzero/recipe-md
-          docker stop recipe-md
-          docker rm recipe-md
-          docker run --name=recipe-md --restart=unless-stopped -p 3001:3000 almightyzero/recipe-md
+      - name: pull and run new container
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            whoami
+            ls -al
+            docker pull almightyzero/recipe-md
+            docker stop recipe-md
+            docker rm recipe-md
+            docker run --name=recipe-md --restart=unless-stopped -p 3001:3000 almightyzero/recipe-md
