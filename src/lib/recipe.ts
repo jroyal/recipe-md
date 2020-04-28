@@ -94,7 +94,9 @@ function getInstructions(recipeContainer: Cheerio): RecipeInstructionGroup[] {
           });
         };
         findInstructions("div[itemprop=recipeInstructions] p");
-        findInstructions("div[itemprop=recipeInstructions]");
+        if (instructionGroup.instructions.length == 0) {
+          findInstructions("div[itemprop=recipeInstructions]");
+        }
       });
       instructions.push(instructionGroup);
     });
