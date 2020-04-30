@@ -42,6 +42,18 @@ interface Recipe {
   formatIngredient?: () => string;
 }
 
+interface RecipeFetcher {
+  recipeContainer: Cheerio;
+
+  getInstructions(): RecipeInstructionGroup[];
+  getIngredients(): RecipeIngredientGroup[];
+  getDetails(): RecipeDetails;
+  getMeta(): RecipeMeta;
+  getSummary(): string;
+  getName(): string;
+  getNotes(): string[];
+}
+
 export {
   Recipe,
   RecipeMeta,
@@ -49,4 +61,5 @@ export {
   RecipeIngredient,
   RecipeIngredientGroup,
   RecipeInstructionGroup,
+  RecipeFetcher,
 };
