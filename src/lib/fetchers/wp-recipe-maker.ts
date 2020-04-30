@@ -21,11 +21,11 @@ export class WPRMFetcher implements RecipeFetcher {
   }
 
   getName() {
-    return this.recipeContainer.find(".wprm-recipe-name").text();
+    return this.recipeContainer.find(".wprm-recipe-name").text().trim();
   }
 
   getSummary() {
-    return this.recipeContainer.find(".wprm-recipe-summary").text();
+    return this.recipeContainer.find(".wprm-recipe-summary").text().trim();
   }
 
   getServings() {
@@ -34,29 +34,41 @@ export class WPRMFetcher implements RecipeFetcher {
     return `${amount} ${unit}`;
   }
 
-  getMetaItem(container: Cheerio, tag: string) {
-    return container.find(`meta[itemprop=${tag}]`).attr("content");
+  getTime(type: string) {
+    return (
+      this.recipeContainer
+        .find(`.wprm-recipe-${type}-time-container .wprm-recipe-time`)
+        .text() || humanizeTime(this.getMetaItem(`${type}Time`))
+    );
+  }
+
+  getMetaItem(tag: string) {
+    return this.recipeContainer.find(`meta[itemprop=${tag}]`).attr("content");
+  }
+
+  getImage(): string {
+    let image = this.getMetaItem("image");
+    if (!image) {
+      image = this.recipeContainer
+        .find(".wprm-recipe-image img")
+        .attr("data-src");
+    }
+    return image;
   }
 
   getMeta(): RecipeMeta {
     return {
-      author: this.getMetaItem(this.recipeContainer, "author"),
-      published: this.getMetaItem(this.recipeContainer, "datePublished"),
-      image: this.getMetaItem(this.recipeContainer, "image"),
+      author: this.getMetaItem("author"),
+      published: this.getMetaItem("datePublished"),
+      image: this.getImage(),
     };
   }
 
   getDetails(): RecipeDetails {
     return {
-      preptime: humanizeTime(
-        this.getMetaItem(this.recipeContainer, "prepTime")
-      ),
-      cooktime: humanizeTime(
-        this.getMetaItem(this.recipeContainer, "cookTime")
-      ),
-      totaltime: humanizeTime(
-        this.getMetaItem(this.recipeContainer, "totalTime")
-      ),
+      preptime: this.getTime("prep"),
+      cooktime: this.getTime("cook"),
+      totaltime: this.getTime("total"),
       servings: this.getServings(),
     };
   }
@@ -103,13 +115,15 @@ export class WPRMFetcher implements RecipeFetcher {
           instructions: [],
         };
         group.find("li[class=wprm-recipe-instruction]").each((_, elem) => {
+          const li = cheerio(elem);
           let findInstructions = (selector: string) => {
-            group.find(selector).each((_, elem) => {
+            li.find(selector).each((_, elem) => {
               let text = cheerio(elem).text();
               text = text.replace(/^\W*\d+\./gm, "").trim();
               instructionGroup.instructions.push(text);
             });
           };
+          findInstructions(".wprm-recipe-instruction-text");
           findInstructions("div[itemprop=recipeInstructions] p");
           if (instructionGroup.instructions.length == 0) {
             findInstructions("div[itemprop=recipeInstructions]");
