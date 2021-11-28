@@ -116,7 +116,7 @@ export class WPRMFetcher implements RecipeFetcher {
         };
         group.find("li[class=wprm-recipe-instruction]").each((_, elem) => {
           const li = cheerio(elem);
-          let findInstructions = (selector: string) => {
+          const findInstructions = (selector: string) => {
             li.find(selector).each((_, elem) => {
               let text = cheerio(elem).text();
               text = text.replace(/^\W*\d+\./gm, "").trim();

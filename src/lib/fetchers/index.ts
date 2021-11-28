@@ -1,5 +1,9 @@
 import { WPRMFetcher, selector as WPRMSelector } from "./wp-recipe-maker";
 import { TastyFetcher, selector as TastySelector } from "./wp-tasty";
+import {
+  FoodNetworkFetcher,
+  selector as FoodNetworkSelector,
+} from "./food-network";
 import { RecipeFetcher } from "../../models/recipe";
 
 const fetchers: {
@@ -7,11 +11,12 @@ const fetchers: {
 } = {
   [TastySelector]: TastyFetcher,
   [WPRMSelector]: WPRMFetcher,
+  [FoodNetworkSelector]: FoodNetworkFetcher,
 };
 
 function getFetcher($: CheerioStatic): RecipeFetcher {
   for (const selector in fetchers) {
-    let recipeContainer = $(selector);
+    const recipeContainer = $(selector);
     if (recipeContainer.length) {
       return new fetchers[selector](recipeContainer);
     }

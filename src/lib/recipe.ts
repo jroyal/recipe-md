@@ -5,7 +5,7 @@ import { getFetcher } from "./fetchers";
 export async function parseRecipe(url: string): Promise<Recipe> {
   const $ = await loadURLToCheerio(url);
 
-  let fetcher: RecipeFetcher = getFetcher($);
+  const fetcher: RecipeFetcher = getFetcher($);
 
   return {
     name: fetcher.getName(),
