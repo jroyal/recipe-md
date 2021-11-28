@@ -1,4 +1,4 @@
-FROM node:13-slim
+FROM node:16-slim
 
 WORKDIR /source/recipe-md
 
