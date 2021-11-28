@@ -1,0 +1,14 @@
+name = "recipe-md"
+type = "javascript"
+account_id= "1c787a4e7a6972171826b9c0bdd5a4ee"
+compatibility_flags = []
+workers_dev = false
+compatibility_date = "2021-11-28"
+
+route = 'recipemd2.hypersloth.io/*'
+zone_id = 'f26899c9ac5bea9fcc538b11963ebe78'
+
+[build]
+command = "npm install && npm run build"
+[build.upload]
+format = "service-worker"
