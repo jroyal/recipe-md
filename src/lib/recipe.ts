@@ -42,7 +42,7 @@ interface Recipe {
   formatIngredient?: () => string
 }
 
-interface RecipeFetcher {
+interface RecipeParser {
   getInstructions(): RecipeInstructionGroup[]
   getIngredients(): RecipeIngredientGroup[]
   getDetails(): RecipeDetails
@@ -50,6 +50,8 @@ interface RecipeFetcher {
   getSummary(): string
   getName(): string
   getNotes(): string[]
+
+  getRecipe(): Recipe
 }
 
 export {
@@ -59,5 +61,5 @@ export {
   RecipeIngredient,
   RecipeIngredientGroup,
   RecipeInstructionGroup,
-  RecipeFetcher,
+  RecipeParser,
 }

@@ -1,5 +1,7 @@
 import Scraper from '../lib/scraper'
-
+import { LDJsonParser } from '../lib/ldjson'
+import { generateMarkdown } from '../lib/markdown'
+import { Recipe } from '../lib/recipe'
 class RecipeParserHandler {
   //@ts-ignore
   element(element) {}
@@ -27,16 +29,19 @@ async function handler(request: Request, event: FetchEvent): Promise<Response> {
     scraper = await (await new Scraper(event, {})).fetch(recipeURL)
   }
 
-  const result = await scraper
-    .querySelector('script[type="application/ld+json"]')
-    .getText({})
+  const selector = 'script[type="application/ld+json"]'
+  const result = await scraper.querySelector(selector).getText({})
 
-  console.log(JSON.stringify(result))
+  if (!result[selector]) {
+    return new Response('failed to parse the recipe')
+  }
 
-  // const parser = new RecipeParserHandler()
-  // const body = await new HTMLRewriter().on()
+  let data = result[selector]
 
-  return new Response(`heyo james ${JSON.stringify(result)}`)
+  let parser = new LDJsonParser(url.toString(), data)
+
+  console.log('RESULT', JSON.stringify(parser.getRecipe()))
+  return new Response(`${await generateMarkdown(parser.getRecipe())}`)
 }
 
 export { handler }
