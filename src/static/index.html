@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Markdown MD</title>
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="/images/favicon.png" />
+    <!-- Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>-->
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body>
+    <div class="abovefold">
+      <div class="wrapper">
+        <div class="branding noselect">
+          <h1>Recipe MD</h1>
+          <div class="subheading">Convert recipe to markdown</div>
+        </div>
+        <form action="parse_recipe" method="get">
+          <div class="input-container">
+            <p class="input-label noselect">Enter recipe URL</p>
+            <div class="link">
+              <input
+                class="source-input"
+                id="recipe_url"
+                name="recipe_url"
+                autocomplete="off"
+                autofocus=""
+                style="width: 12px"
+              />
+            </div>
+          </div>
+          <div class="main-button">
+            <button class="clean" type="submit">CREATE RECIPE MARKDOWN</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
