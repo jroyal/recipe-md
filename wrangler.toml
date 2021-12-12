@@ -14,7 +14,7 @@ command = "npm install && npm run build"
 format = "service-worker"
 
 [site]
-bucket = "./src/static" # Add the directory with your static assets!
+bucket = "./src/static"
 entry-point = "./"
 
 [[kv_namespaces]] 

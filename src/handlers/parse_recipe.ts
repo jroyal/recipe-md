@@ -40,7 +40,6 @@ async function handler(request: Request, event: FetchEvent): Promise<Response> {
 
   let parser = new LDJsonParser(url.toString(), data)
 
-  console.log('RESULT', JSON.stringify(parser.getRecipe()))
   return new Response(`${await generateMarkdown(parser.getRecipe())}`)
 }
 

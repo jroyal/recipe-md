@@ -16,7 +16,6 @@ export class LDJsonParser implements RecipeParser {
 
   constructor(url: string, scrapped: string) {
     this.url = url
-    console.log('scrappedInput', scrapped)
     let data = JSON.parse(scrapped)
     if (Array.isArray(data) && data.length > 0) {
       data = data[0]
@@ -142,7 +141,7 @@ function processHowToStep(data: any): string[] {
   // check to see if everything is on the same line
   const multistep = data.text.split(/\d+\. /)
   if (multistep.length > 1) {
-    return multistep
+    return multistep.filter(Boolean)
   }
   return [data.text]
 }
