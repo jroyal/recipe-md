@@ -92,18 +92,18 @@ export class LDJsonParser implements RecipeParser {
 
   getInstructions(): RecipeInstructionGroup[] {
     const instructions: RecipeInstructionGroup[] = []
-
-    const instructionGroup: RecipeInstructionGroup = {
-      name: '',
-      instructions: [],
+    const nonStructuredSteps = []
+    for (const elem of this.data.recipeInstructions) {
+      if (elem['@type'] == 'HowToSection') {
+        instructions.push(processHowToSection(elem))
+      } else {
+        nonStructuredSteps.push(...processHowToStep(elem))
+      }
+    }
+    if (nonStructuredSteps) {
+      instructions.push({ name: '', instructions: nonStructuredSteps })
     }
 
-    instructionGroup.instructions = instructionGroup.instructions.concat(
-      this.data.recipeInstructions.map((instruction: any) => {
-        return instruction.text
-      }),
-    )
-    instructions.push(instructionGroup)
     return instructions
   }
 
@@ -124,4 +124,25 @@ export class LDJsonParser implements RecipeParser {
       notes: this.getNotes(),
     }
   }
+}
+
+function processHowToSection(data: any): RecipeInstructionGroup {
+  // for right now assume that there are no sub sections
+  const instructions = data.itemListElement
+    .map((elem: any) => processHowToStep(elem))
+    .reduce((prev: string[], curr: string[]) => prev.push(...curr))
+    .filter(Boolean)
+  return {
+    name: data.name,
+    instructions,
+  }
+}
+
+function processHowToStep(data: any): string[] {
+  // check to see if everything is on the same line
+  const multistep = data.text.split(/\d+\. /)
+  if (multistep.length > 1) {
+    return multistep
+  }
+  return [data.text]
 }
