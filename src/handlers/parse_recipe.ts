@@ -1,17 +1,23 @@
 import Scraper from '../lib/scraper'
 import { LDJsonParser } from '../lib/ldjson'
 import { generateMarkdown } from '../lib/markdown'
-import { Recipe } from '../lib/recipe'
-class RecipeParserHandler {
-  //@ts-ignore
-  element(element) {}
-}
+import { hash } from '../lib/hash'
+import { generateCode, getExistingCode, storeRecipe } from '../lib/storage'
 
 async function handler(request: Request, event: FetchEvent): Promise<Response> {
   const url = new URL(request.url)
   const recipeURL = url.searchParams.get('recipe_url')
   if (!recipeURL) {
     return new Response('please include a url in recipe_url', { status: 400 })
+  }
+
+  const urlHash = await hash(recipeURL)
+  const existingRecipeCode = await getExistingCode(urlHash)
+  if (existingRecipeCode) {
+    return new Response(`/${existingRecipeCode}`, {
+      status: 302,
+      headers: { location: `/recipe/${existingRecipeCode}` },
+    })
   }
 
   let scraper: Scraper
@@ -39,8 +45,16 @@ async function handler(request: Request, event: FetchEvent): Promise<Response> {
   let data = result[selector]
 
   let parser = new LDJsonParser(url.toString(), data)
+  const recipeData = parser.getRecipe()
+  const markdown = await generateMarkdown(recipeData)
 
-  return new Response(`${await generateMarkdown(parser.getRecipe())}`)
+  const code = await generateCode(urlHash)
+  await storeRecipe(code, markdown)
+
+  return new Response(`/${code}`, {
+    status: 302,
+    headers: { location: `/recipe/${code}` },
+  })
 }
 
 export { handler }
