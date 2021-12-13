@@ -1,8 +1,14 @@
 import { Recipe } from './recipe'
 import { recipeTemplate } from '../templates/recipe.md'
 import Mustache from 'mustache'
+import MarkdownIt from 'markdown-it'
 
-export async function generateMarkdown(recipe: Recipe): Promise<string> {
+interface StoredMarkdown {
+  markdown: string
+  html: string
+}
+
+async function generateMarkdown(recipe: Recipe): Promise<string> {
   recipe.formatIngredient = function () {
     let result = this.name
     //@ts-ignore
@@ -14,3 +20,13 @@ export async function generateMarkdown(recipe: Recipe): Promise<string> {
   }
   return Mustache.render(recipeTemplate, recipe)
 }
+
+function generateMarkdownHTML(markdown: string) {
+  const md = new MarkdownIt({
+    html: true,
+  })
+
+  return md.render(markdown)
+}
+
+export { generateMarkdown, generateMarkdownHTML, StoredMarkdown }

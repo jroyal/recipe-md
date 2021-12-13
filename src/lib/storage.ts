@@ -1,3 +1,4 @@
+import { StoredMarkdown } from './markdown'
 function generateCodeKey(urlHash: string) {
   return `recipe_code_${urlHash}`
 }
@@ -22,11 +23,11 @@ async function getExistingCode(urlHash: string) {
   return await RECIPEMD.get(generateCodeKey(urlHash))
 }
 
-async function storeRecipe(code: string, markdown: string) {
-  return await RECIPEMD.put(`recipe_${code}`, JSON.stringify({ markdown }))
+async function storeRecipe(code: string, markdown: StoredMarkdown) {
+  return await RECIPEMD.put(`recipe_${code}`, JSON.stringify(markdown))
 }
 
-async function getRecipe(code: string) {
+async function getRecipe(code: string): Promise<StoredMarkdown | null> {
   return await RECIPEMD.get(generateRecipeKey(code), 'json')
 }
 

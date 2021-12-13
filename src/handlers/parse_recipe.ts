@@ -1,6 +1,6 @@
 import Scraper from '../lib/scraper'
 import { LDJsonParser } from '../lib/ldjson'
-import { generateMarkdown } from '../lib/markdown'
+import { generateMarkdown, generateMarkdownHTML } from '../lib/markdown'
 import { hash } from '../lib/hash'
 import { generateCode, getExistingCode, storeRecipe } from '../lib/storage'
 
@@ -47,9 +47,10 @@ async function handler(request: Request, event: FetchEvent): Promise<Response> {
   let parser = new LDJsonParser(url.toString(), data)
   const recipeData = parser.getRecipe()
   const markdown = await generateMarkdown(recipeData)
+  const markdownHTML = generateMarkdownHTML(markdown)
 
   const code = await generateCode(urlHash)
-  await storeRecipe(code, markdown)
+  await storeRecipe(code, { markdown, html: markdownHTML })
 
   return new Response(`/${code}`, {
     status: 302,
