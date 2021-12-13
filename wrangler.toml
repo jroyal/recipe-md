@@ -5,7 +5,7 @@ compatibility_flags = []
 workers_dev = false
 compatibility_date = "2021-11-28"
 
-route = 'recipemd2.hypersloth.io/*'
+route = 'recipemd.hypersloth.io/*'
 zone_id = 'f26899c9ac5bea9fcc538b11963ebe78'
 
 [build]
