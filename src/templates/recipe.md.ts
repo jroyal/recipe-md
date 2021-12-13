@@ -1,3 +1,4 @@
+export const recipeTemplate = `
 # {{name}}
 
 {{{summary}}}
@@ -48,4 +49,4 @@
 {{#notes}}
 - {{{.}}}
 {{/notes}}
-{{/notes.length}}
+{{/notes.length}}`

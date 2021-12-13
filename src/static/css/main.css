@@ -5,8 +5,8 @@ body {
   background: #fff;
   line-height: 1.4285em;
   overflow-x: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   height: 100%;
   position: relative;
 }
@@ -81,8 +81,8 @@ a {
   appearance: none;
   box-sizing: border-box;
   border-radius: 4px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   letter-spacing: 0;
   color: #d7d7d7;
   font-weight: 200;
@@ -121,8 +121,8 @@ a {
   font-size: 13px;
   color: #a6a6a6;
   text-transform: uppercase;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 ::-webkit-input-placeholder {
@@ -147,8 +147,8 @@ a {
 }
 
 .clean {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 600;
   font-style: normal;
   width: 300px;
@@ -225,7 +225,7 @@ a {
   z-index: 2;
 }
 
-input[type="radio"] {
+input[type='radio'] {
   display: none;
 }
 
@@ -262,20 +262,20 @@ input[type="radio"] {
   transition: 0.15s ease-in;
 }
 
-input[type="radio"]:checked + label {
+input[type='radio']:checked + label {
   color: var(--primary-color);
 }
-input[type="radio"]:checked + label > .notification {
+input[type='radio']:checked + label > .notification {
   background-color: var(--primary-color);
   color: #fff;
 }
 
-input[id="radio-1"]:checked ~ .glider {
+input[id='radio-1']:checked ~ .glider {
   -webkit-transform: translateX(0);
   transform: translateX(0);
 }
 
-input[id="radio-2"]:checked ~ .glider {
+input[id='radio-2']:checked ~ .glider {
   -webkit-transform: translateX(100%);
   transform: translateX(100%);
 }
@@ -303,16 +303,16 @@ input[id="radio-2"]:checked ~ .glider {
 :root {
   --base-font-weight: 400;
   --base-font-size: 22px/1.62;
-  --sys-font-family: "Adobe Garamond Pro", "Georgia", "Times New Roman", Times,
+  --sys-font-family: 'Adobe Garamond Pro', 'Georgia', 'Times New Roman', Times,
     serif;
-  --zh-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Droid Sans",
-    "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Droid Sans Fallback",
-    "Microsoft YaHei", sans-serif;
-  --sub-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Droid Sans",
-    "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Droid Sans Fallback",
-    "Microsoft YaHei", sans-serif;
+  --zh-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Droid Sans',
+    'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Droid Sans Fallback',
+    'Microsoft YaHei', sans-serif;
+  --sub-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Droid Sans',
+    'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Droid Sans Fallback',
+    'Microsoft YaHei', sans-serif;
   --base-font-family: var(--sys-font-family), var(--zh-font-family);
-  --code-font-family: Menlo, Monaco, Consolas, "Courier New";
+  --code-font-family: Menlo, Monaco, Consolas, 'Courier New';
   --base-color: #444443;
   --emphasis-color: #222223;
   --link-color: #0985ce;

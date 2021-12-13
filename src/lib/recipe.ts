@@ -1,20 +1,65 @@
-import { loadURLToCheerio } from "./load";
-import { Recipe, RecipeFetcher } from "../models/recipe";
-import { getFetcher } from "./fetchers";
+interface RecipeIngredient {
+  amount: string
+  unit: string
+  name: string
+  notes?: string
+}
 
-export async function parseRecipe(url: string): Promise<Recipe> {
-  const $ = await loadURLToCheerio(url);
+interface RecipeIngredientGroup {
+  name?: string
+  ingredients: RecipeIngredient[]
+}
 
-  const fetcher: RecipeFetcher = getFetcher($);
+interface RecipeInstructionGroup {
+  name?: string
+  instructions: string[]
+}
 
-  return {
-    name: fetcher.getName(),
-    summary: fetcher.getSummary(),
-    url: url,
-    meta: fetcher.getMeta(),
-    details: fetcher.getDetails(),
-    ingredientGroups: fetcher.getIngredients(),
-    instructionGroups: fetcher.getInstructions(),
-    notes: fetcher.getNotes(),
-  };
+interface RecipeDetails {
+  preptime: string
+  cooktime: string
+  totaltime: string
+  servings: string
+}
+
+interface RecipeMeta {
+  author: string
+  published: string
+  image: string
+}
+
+interface Recipe {
+  name: string
+  summary: string
+  url: string
+  meta: RecipeMeta
+  details: RecipeDetails
+  ingredientGroups: RecipeIngredientGroup[]
+  instructionGroups: RecipeInstructionGroup[]
+  notes?: string[]
+
+  // for mustache
+  formatIngredient?: () => string
+}
+
+interface RecipeParser {
+  getInstructions(): RecipeInstructionGroup[]
+  getIngredients(): RecipeIngredientGroup[]
+  getDetails(): RecipeDetails
+  getMeta(): RecipeMeta
+  getSummary(): string
+  getName(): string
+  getNotes(): string[]
+
+  getRecipe(): Recipe
+}
+
+export {
+  Recipe,
+  RecipeMeta,
+  RecipeDetails,
+  RecipeIngredient,
+  RecipeIngredientGroup,
+  RecipeInstructionGroup,
+  RecipeParser,
 }
