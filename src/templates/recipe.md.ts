@@ -3,10 +3,11 @@ export const recipeTemplate = `
 
 {{{summary}}}
 
+{{#meta.image}}
 <p align="center">
   <img max-width="224" height="224" src="{{{meta.image}}}">
 </p>
-
+{{/meta.image}}
 | Meta          | Details                       |
 | ------------- | ----------------------------- |
 | Author     	| {{meta.author}}           	|
