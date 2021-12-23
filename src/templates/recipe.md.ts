@@ -8,6 +8,7 @@ export const recipeTemplate = `
   <img max-width="224" height="224" src="{{{meta.image}}}">
 </p>
 {{/meta.image}}
+
 | Meta          | Details                       |
 | ------------- | ----------------------------- |
 | Author     	| {{meta.author}}           	|

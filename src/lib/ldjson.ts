@@ -9,6 +9,7 @@ import {
   RecipeParser,
   Recipe,
 } from './recipe'
+import { parseISO8601Duration } from './time'
 
 export class LDJsonParser implements RecipeParser {
   data: any
@@ -51,6 +52,10 @@ export class LDJsonParser implements RecipeParser {
   }
 
   getImage(): string {
+    let image = this.data.image
+    if (Array.isArray(image) && image.length > 0) {
+      return image[0]
+    }
     return this.data.image.url
   }
 
@@ -68,9 +73,9 @@ export class LDJsonParser implements RecipeParser {
 
   getDetails(): RecipeDetails {
     return {
-      preptime: this.getTime('prepTime'),
-      cooktime: this.getTime('cookTime'),
-      totaltime: this.getTime('totalTime'),
+      preptime: parseISO8601Duration(this.getTime('prepTime')),
+      cooktime: parseISO8601Duration(this.getTime('cookTime')),
+      totaltime: parseISO8601Duration(this.getTime('totalTime')),
       servings: this.getServings(),
     }
   }
