@@ -2,7 +2,7 @@
 
 Convert certain food blogs to markdown for easy import elsewhere
 
-## Developement
+## Development
 
 Running in dev `wrangler dev --host recipemd.hypersloth.io`
 
