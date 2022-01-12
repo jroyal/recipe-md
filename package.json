@@ -37,7 +37,7 @@
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
     "itty-router": "^2.4.5",
-    "markdown-it": "^12.3.0",
+    "markdown-it": "^12.3.2",
     "mustache": "^4.2.0"
   }
 }
