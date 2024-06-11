@@ -8,6 +8,7 @@ Running in dev `wrangler dev --host recipemd.hypersloth.io`
 
 ## Deployment
 
+In progress: Switching to CF pages
 `wrangler publish`
 
 ## IOS Shortcut
