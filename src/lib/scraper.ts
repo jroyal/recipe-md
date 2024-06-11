@@ -4,14 +4,12 @@
 const cleanText = (s: string) => s.trim().replace(/\s\s+/g, ' ')
 
 class Scraper {
-  event: Event
   rewriter: HTMLRewriter
   url: string
   selector: string
   response: Response
 
-  constructor(event: Event, { resp }: { resp?: Response }) {
-    this.event = event
+  constructor({ resp }: { resp?: Response }) {
     this.rewriter = new HTMLRewriter()
     this.url = ''
     this.selector = ''

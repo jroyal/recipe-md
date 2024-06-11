@@ -3,9 +3,7 @@
   "version": "2.0.0",
   "description": "Given a URL return a markdown representation of the recipe",
   "scripts": {
-    "deploy": "wrangler deploy",
-    "dev": "wrangler dev",
-    "start": "wrangler dev",
+    "dev": "npx wrangler pages dev src --kv RECIPEMD",
     "cf-typegen": "wrangler types",
     "format": "prettier --write  '*.{json,js}' 'src/**/*.{js,ts}' 'test/**/*.{js,ts}'",
     "lint": "eslint --max-warnings=0 src && prettier --check '*.{json,js}' 'src/**/*.{js,ts}' 'test/**/*.{js,ts}'",
