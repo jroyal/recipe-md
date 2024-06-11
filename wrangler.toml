@@ -1,12 +1,11 @@
 name = "recipe-md"
-type = "javascript"
-account_id= "1c787a4e7a6972171826b9c0bdd5a4ee"
+account_id = "1c787a4e7a6972171826b9c0bdd5a4ee"
 compatibility_flags = []
 workers_dev = false
 compatibility_date = "2021-11-28"
+main = "index.ts"
 
-route = 'recipemd.hypersloth.io/*'
-zone_id = 'f26899c9ac5bea9fcc538b11963ebe78'
+route = { pattern = "recipemd.hypersloth.io/*", zone_id = "f26899c9ac5bea9fcc538b11963ebe78" }
 
 [build]
 command = "npm install && npm run build"
@@ -15,9 +14,8 @@ format = "service-worker"
 
 [site]
 bucket = "./src/static"
-entry-point = "./"
 
-[[kv_namespaces]] 
-binding = "RECIPEMD" 
+[[kv_namespaces]]
+binding = "RECIPEMD"
 id = "072de208fcd84942b17f761e15ab7bf6"
-preview_id = "072de208fcd84942b17f761e15ab7bf6" 
+preview_id = "072de208fcd84942b17f761e15ab7bf6"

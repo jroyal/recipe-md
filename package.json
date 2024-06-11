@@ -2,9 +2,11 @@
   "name": "recipe-md",
   "version": "2.0.0",
   "description": "Given a URL return a markdown representation of the recipe",
-  "main": "dist/worker.js",
   "scripts": {
-    "build": "webpack",
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "cf-typegen": "wrangler types",
     "format": "prettier --write  '*.{json,js}' 'src/**/*.{js,ts}' 'test/**/*.{js,ts}'",
     "lint": "eslint --max-warnings=0 src && prettier --check '*.{json,js}' 'src/**/*.{js,ts}' 'test/**/*.{js,ts}'",
     "test": "echo \"no tests currently\""
@@ -19,7 +21,7 @@
     ]
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^3.0.0",
+    "@cloudflare/workers-types": "^4.20240605.0",
     "@types/markdown-it": "^12.2.3",
     "@types/mustache": "^4.1.2",
     "@types/service-worker-mock": "^2.0.1",
@@ -29,14 +31,11 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-config-typescript": "^3.0.0",
     "prettier": "^2.3.0",
-    "ts-loader": "^9.2.2",
-    "typescript": "^4.3.2",
-    "webpack": "^5.38.1",
-    "webpack-cli": "^4.7.0"
+    "typescript": "^5.0.4",
+    "wrangler": "^3.0.0"
   },
   "dependencies": {
-    "@cloudflare/kv-asset-handler": "^0.2.0",
-    "itty-router": "^2.4.5",
+    "itty-router": "^3.0.12",
     "markdown-it": "^12.3.0",
     "mustache": "^4.2.0"
   }
